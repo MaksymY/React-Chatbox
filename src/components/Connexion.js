@@ -11,7 +11,7 @@ class Connexion extends Component {
         const pseudo = event.target.value
         this.setState({ pseudo })
     }
-
+    
     handleSubmit = event => {
         event.preventDefault()
         this.setState({ goToChat: true })

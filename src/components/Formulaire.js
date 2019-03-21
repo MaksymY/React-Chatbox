@@ -1,15 +1,43 @@
 import React, { Component } from 'react'
 
 class Formulaire extends Component {
-    handleSubmit = event => {
-        event.preventDefault()
-        console.log('Submit')
+
+  state = {
+      message: '',
+      length: this.props.length
+  }
+
+  createMessage = () => {
+    const { addMessage, pseudo, length } = this.props
+
+    const message = {
+      pseudo,
+      message: this.state.message
     }
 
-handleChange = evnet => {
+    addMessage(message)
+
+    //Reset
+    this.setState({ message: '', length })
+  }
+   
+  handleSubmit = event => {
+    event.preventDefault()
+    this.createMessage()
+   }
+
+  handleChange = event => {
     const message = event.target.value
-    this.setState({ message })
-}
+    const length = this.props.length - message.length
+    this.setState({ message, length })
+   }
+
+   handleKeyUp = event => {
+     if (event.key === 'Enter'){
+       this.createMessage()
+     }
+   }
+
 
     render (){
         return(
@@ -19,10 +47,11 @@ handleChange = evnet => {
             <textarea
               value={this.state.message}
               onChange={this.handleChange}
+              onKeyUp={this.handleKeyUp}
               required
-              maxLength='140' />
+              maxLength={this.props.length} />
               <div className='info'>
-                140
+                { this.state.length }
               </div>
               <button type='submit'>
                 Envoyer!
