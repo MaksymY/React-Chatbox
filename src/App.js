@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, createRef} from 'react'
 import './App.css'
 import Formulaire from './components/Formulaire'
 import Message from './components/Message'
 import { runInThisContext } from 'vm';
 
+// FireBase
+import base from'./base'
 
 class App extends Component {
   state ={
@@ -11,6 +13,20 @@ class App extends Component {
     pseudo: this.props.match.params.pseudo
   }
 
+  messagesRef = createRef()
+
+  componentDidMount () {
+    base.syncState('/', {
+      context: this,
+      state: 'messages'
+    })
+  }
+  
+  componentDidUpdate () {
+    const ref = this.messagesRef.current
+    ref.scroolTop = ref.scroolHeight
+  }
+  
 
   addMessage = message => {
     const messages = { ...this.state.messages }
@@ -30,7 +46,7 @@ class App extends Component {
 
     return (
       <div className='box' >
-        <div className='messages'>
+        <div className='messages' ref={this.messagesRef}>
           <div className="message">
             { messages }
           </div>
