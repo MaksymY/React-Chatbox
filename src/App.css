@@ -103,7 +103,7 @@ body {
 }
 
 .not-user-message {
-	background-color: #eceff1;
+	background-color: gold;
 	align-self: flex-start;
 	position: relative;
 }
@@ -116,7 +116,7 @@ body {
 	width: 0;
 	border-width: 0 10px 7px 0;
 	border-style: solid;
-	border-color: #eceff1 transparent;
+	border-color: gold transparent;
 }
 
 .user-message {
